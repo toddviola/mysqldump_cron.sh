@@ -21,9 +21,11 @@ Searching for a suitable replacement, I found [this script](https://grahamrpugh.
 
 Create a special MySQL user just for backups. Give this user limited permissions (SELECT, LOCK TABLES) on all the databases you wish to back up.
 
-Save `mysqldump_cron.sh` and `mysqldump_defaults` in the `$HOME/bin` directory of your hosting account.
+Save `mysqldump_cron.sh` and `mysqldump_defaults` in the `$HOME/bin` directory of your hosting account. Make the script executable.
 
 Edit `mysqldump_defaults` with your database user credentials.
+
+Create a new directory at `$HOME\backup`.
 
 ```
 [client]
