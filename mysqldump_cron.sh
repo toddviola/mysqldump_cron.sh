@@ -3,16 +3,18 @@
 # original source Lyman Lai
 # http://002.yaha.me/item/22728a58-c967-46d5-93eb-2649d684a9aa/
 # edited by G Pugh 2019-01-15
+# edited by T Viola 2020-03-05
 
 
-STORE_FOLDER="/home/MySQL-Backups"
+STORE_FOLDER="$HOME/backup"
+DB_LOGIN="$HOME/bin/mysqldump_defaults"
 
 TODAY=$(date +"%Y-%m-%d")
 DAILY_DELETE_NAME="daily-"`date +"%Y-%m-%d" --date '7 days ago'`
 WEEKLY_DELETE_NAME="weekly-"`date +"%Y-%m-%d" --date '5 weeks ago'`
 MONTHLY_DELETE_NAME="monthly-"`date +"%Y-%m-%d" --date '12 months ago'`
 
-databases=($(/usr/bin/mysql -Bse "show databases" | grep -i -v "_schema" | grep -i -v "sys" | grep -i -v "mysql"))
+databases=($(/usr/bin/mysql --defaults-extra-file=$DB_LOGIN -Bse "show databases" | grep -i -v "_schema" | grep -i -v "sys" | grep -i -v "mysql"))
 
 function do_backups() {
   # Get db name or "all"
@@ -23,12 +25,12 @@ function do_backups() {
     BACKUP_PATH=$STORE_FOLDER/all
     [[ ! -d "$BACKUP_PATH" ]] && mkdir -p "$BACKUP_PATH"
   	echo "   Creating $BACKUP_PATH/daily-$TODAY.sql.gz"
-    /usr/bin/mysqldump --all-databases | gzip -9 > $BACKUP_PATH/daily-$TODAY.sql.gz
+    /usr/bin/mysqldump --defaults-extra-file=$DB_LOGIN --no-tablespaces --all-databases | gzip -9 > $BACKUP_PATH/daily-$TODAY.sql.gz
   else
     BACKUP_PATH=$STORE_FOLDER/$db
     [[ ! -d "$BACKUP_PATH" ]] && mkdir -p "$BACKUP_PATH"
   	echo "   Creating $BACKUP_PATH/daily-$TODAY.sql.gz"
-    /usr/bin/mysqldump $db | gzip -9 > $BACKUP_PATH/daily-$TODAY.sql.gz
+    /usr/bin/mysqldump --defaults-extra-file=$DB_LOGIN --no-tablespaces $db | gzip -9 > $BACKUP_PATH/daily-$TODAY.sql.gz
   fi
 
   # delete old backups
@@ -65,9 +67,10 @@ echo "   $WEEKLY_DELETE_NAME"
 echo "   $MONTHLY_DELETE_NAME"
 echo
 
-# Entire backup
-echo "Starting complete MySQL backup..."
-do_backups all
+# Backup all databases
+# (I choose to skip this step because I only need the individual backups. TV)
+# echo "Starting complete MySQL backup..."
+# do_backups all
 
 # Individual db backups
 for db in "${databases[@]}"; do
