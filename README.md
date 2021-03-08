@@ -1,4 +1,4 @@
-# Script to backup MySQL databases in a shared host environment
+# Script to back up MySQL databases in a shared host environment
 
 For several years, I had been using the [automysqlbackup](https://sourceforge.net/projects/automysqlbackup/) script to do nightly local backups of my website databases on my shared host. Unfortunately, my hosting company no longer supports automysqlbackup on shared hosting accounts. Running the script from my account home directory produced this error:
 
