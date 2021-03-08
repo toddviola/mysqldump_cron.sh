@@ -1,4 +1,4 @@
-# Script to backup MySQL databases in a shared host environment
+# Script to back up MySQL databases in a shared host environment
 
 For several years, I had been using the [automysqlbackup](https://sourceforge.net/projects/automysqlbackup/) script to do nightly local backups of my website databases on my shared host. Unfortunately, my hosting company no longer supports automysqlbackup on shared hosting accounts. Running the script from my account home directory produced this error:
 
@@ -14,7 +14,7 @@ Searching for a suitable replacement, I found [this script](https://grahamrpugh.
 
 * Easily installed and run from the `$HOME` directory on a shared hosting account.
 * Can be configured to run as a specific MySQL user.
-* Finds and backs up muliple databases without having to be configured for each one.
+* Finds and backs up multiple databases without having to be configured for each one.
 * Saves a specified number of daily, weekly, and monthly backups of each database.
 
 ## Usage
