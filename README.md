@@ -14,7 +14,7 @@ Searching for a suitable replacement, I found [this script](https://grahamrpugh.
 
 * Easily installed and run from the `$HOME` directory on a shared hosting account.
 * Can be configured to run as a specific MySQL user.
-* Finds and backs up muliple databases without having to be configured for each one.
+* Finds and backs up multiple databases without having to be configured for each one.
 * Saves a specified number of daily, weekly, and monthly backups of each database.
 
 ## Usage
@@ -23,9 +23,9 @@ Create a special MySQL user just for backups. Give this user limited permissions
 
 Save `mysqldump_cron.sh` and `mysqldump_defaults` in the `$HOME/bin` directory of your hosting account. Make the script executable.
 
-Edit `mysqldump_defaults` with your database user credentials.
-
 Create a new directory at `$HOME\backup`.
+
+Edit `mysqldump_defaults` with your database user credentials.
 
 ```
 [client]
